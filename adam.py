@@ -19,3 +19,5 @@ for i in range(10):
     distance = calculateGravityAttraction(particleOneMass, partcileTwoMass, bigG, distance)
     print(distance)
     sleep(1)
+
+# funny addition hahahahahahahahah
