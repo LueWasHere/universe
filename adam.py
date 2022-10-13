@@ -107,7 +107,9 @@ while not done:
                         floor(uniform(4, 10)),
                     )
                 )
-        if event.type == pygame.MOUSEBUTTONUP and mass_input != "" and int(mass_input) != 0:
+        if event.type == pygame.MOUSEBUTTONUP and mass_input != "":
+            if float(mass_input) == 0:
+                mass_input = "0.000000001"
             universe.append(
                 Particle(
                     float(mass_input),
