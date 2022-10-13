@@ -81,8 +81,11 @@ while not done:
                 pygame.K_7,
                 pygame.K_8,
                 pygame.K_9,
+                pygame.K_PERIOD,
+                pygame.K_KP_MINUS,
+                pygame.K_MINUS,
             ]:
-                mass_input += ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"][
+                mass_input += ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-", "-", ][
                     [
                         pygame.K_0,
                         pygame.K_1,
@@ -94,6 +97,9 @@ while not done:
                         pygame.K_7,
                         pygame.K_8,
                         pygame.K_9,
+                        pygame.K_PERIOD,
+                        pygame.K_KP_MINUS,
+                        pygame.K_MINUS,
                     ].index(event.key)
                 ]
             if event.key == pygame.K_KP_PLUS:
@@ -108,7 +114,7 @@ while not done:
         if event.type == pygame.MOUSEBUTTONUP and mass_input != "":
             universe.append(
                 Particle(
-                    int(mass_input),
+                    float(mass_input),
                     [
                         pygame.mouse.get_pos()[0] - width / 2,
                         height / 2 - pygame.mouse.get_pos()[1],
