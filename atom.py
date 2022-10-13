@@ -58,7 +58,7 @@ universe = [
 ]
 
 #   Execution   #
-
+clock = pygame.time.Clock()
 while not done:
     if bigG == 0:
         bigG = 0.000000000000001
@@ -199,3 +199,5 @@ while not done:
     sleep(0.1)
     pygame.display.flip()
     width, height = pygame.display.get_window_size()
+    pygame.display.set_caption(f"Gravity Simulation. FPS: {clock.get_fps()}")
+    clock.tick(120)
