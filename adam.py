@@ -148,7 +148,7 @@ while not done:
                 )
     for i in range(0, len(universe)):
         print(
-            f"{i}: {universe[i].mass}; {universe[i].vel}; ({universe[i].pos[0]}, {universe[i].pos[1]}); G: {bigG}"
+            f"Particle {i}: Mass {universe[i].mass}; Velocity: {universe[i].vel}; Position: ({universe[i].pos[0]}, {universe[i].pos[1]}); Density: {universe[i].density} (Resulting size: {universe[i].mass/universe[i].density}px); G: {bigG}"
         )
         universe[i].pos[0] += universe[i].vel[0]
         universe[i].pos[1] += universe[i].vel[1]
