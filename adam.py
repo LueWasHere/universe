@@ -170,6 +170,14 @@ while not done:
             (width / 2 + universe[i].pos[0], height / 2 - universe[i].pos[1]),
             universe[i].mass / universe[i].density,
         )
+        if universe[i].mass / universe[i].density < 1:
+            pygame.draw.circle(
+                surface,
+                (255, 255, 255),
+                (width / 2 + universe[i].pos[0], height / 2 - universe[i].pos[1]),
+                universe[i].density,
+                width=1,
+            )
     sleep(0.1)
     pygame.display.flip()
     width, height = pygame.display.get_window_size()
