@@ -19,7 +19,7 @@ except ModuleNotFoundError:
 
 pygame.init()
 
-bigG: float = 1  # true constant: 6.67430 * (10**-11)
+bigG: float = 2  # true constant: 6.67430 * (10**-11)
 width, height = 600, 500
 
 surface = pygame.display.set_mode((width, height), pygame.RESIZABLE)
@@ -46,7 +46,14 @@ def calc_dist(point1: list, point2: list) -> float:
     return sqrt(fabs((point1[0] - point2[0]) ** 2) + fabs((point1[1] - point2[1])))
 
 
-universe = [Particle(uniform(0, 10), [uniform(width*-1, width), uniform(height*-1, height)], [uniform(0, 10), uniform(0, 10)]) for i in range(0, 10)]
+universe = [
+    Particle(
+        uniform(0, 10),
+        [uniform(width * -1, width), uniform(height * -1, height)],
+        [uniform(0, 10), uniform(0, 10)],
+    )
+    for i in range(0, 10)
+]
 
 #   Execution   #
 
@@ -59,12 +66,51 @@ while not done:
                 bigG += 1
             elif event.key == pygame.K_s:
                 bigG -= 1
-            if event.key in [pygame.K_0, pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9]:
-                mass_input += ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"][[pygame.K_0, pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6, pygame.K_7, pygame.K_8, pygame.K_9].index(event.key)]
+            if event.key in [
+                pygame.K_0,
+                pygame.K_1,
+                pygame.K_2,
+                pygame.K_3,
+                pygame.K_4,
+                pygame.K_5,
+                pygame.K_6,
+                pygame.K_7,
+                pygame.K_8,
+                pygame.K_9,
+            ]:
+                mass_input += ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"][
+                    [
+                        pygame.K_0,
+                        pygame.K_1,
+                        pygame.K_2,
+                        pygame.K_3,
+                        pygame.K_4,
+                        pygame.K_5,
+                        pygame.K_6,
+                        pygame.K_7,
+                        pygame.K_8,
+                        pygame.K_9,
+                    ].index(event.key)
+                ]
             if event.key == pygame.K_KP_PLUS:
-                universe.append(Particle(uniform(0, 100), [uniform(width*-1, width), uniform(height*-1, height)], [uniform(0, 10), uniform(0, 10)]))
+                universe.append(
+                    Particle(
+                        uniform(0, 100),
+                        [uniform(width * -1, width), uniform(height * -1, height)],
+                        [uniform(0, 10), uniform(0, 10)],
+                    )
+                )
         if event.type == pygame.MOUSEBUTTONUP and mass_input != "":
-            universe.append(Particle(int(mass_input), [pygame.mouse.get_pos()[0]-width/2, height/2-pygame.mouse.get_pos()[1]], [0, 0]))
+            universe.append(
+                Particle(
+                    int(mass_input),
+                    [
+                        pygame.mouse.get_pos()[0] - width / 2,
+                        height / 2 - pygame.mouse.get_pos()[1],
+                    ],
+                    [0, 0],
+                )
+            )
             mass_input = ""
     surface.fill((0, 0, 0))
     for i in range(0, len(universe)):
@@ -98,21 +144,23 @@ while not done:
                     bigG,
                 )
     for i in range(0, len(universe)):
-        print(f"{i}: {universe[i].mass}; {universe[i].vel}; ({universe[i].pos[0]}, {universe[i].pos[1]}); G: {bigG}")
+        print(
+            f"{i}: {universe[i].mass}; {universe[i].vel}; ({universe[i].pos[0]}, {universe[i].pos[1]}); G: {bigG}"
+        )
         universe[i].pos[0] += universe[i].vel[0]
         universe[i].pos[1] += universe[i].vel[1]
-        if universe[i].pos[0] < (width / 2)*-1:
-            universe[i].pos[0] = (width / 2)*-1
-            universe[i].vel[0] = universe[i].vel[0]*-1
+        if universe[i].pos[0] < (width / 2) * -1:
+            universe[i].pos[0] = (width / 2) * -1
+            universe[i].vel[0] = universe[i].vel[0] * -1
         elif universe[i].pos[0] > (width / 2):
-            universe[i].pos[0] = (width / 2)
-            universe[i].vel[0] = universe[i].vel[0]*-1
-        if universe[i].pos[1] < (height / 2)*-1:
-            universe[i].pos[1] = (height / 2)*-1
-            universe[i].vel[1] = universe[i].vel[1]*-1
+            universe[i].pos[0] = width / 2
+            universe[i].vel[0] = universe[i].vel[0] * -1
+        if universe[i].pos[1] < (height / 2) * -1:
+            universe[i].pos[1] = (height / 2) * -1
+            universe[i].vel[1] = universe[i].vel[1] * -1
         elif universe[i].pos[1] > (height / 2):
-            universe[i].pos[1] = (height / 2)
-            universe[i].vel[1] = universe[i].vel[1]*-1
+            universe[i].pos[1] = height / 2
+            universe[i].vel[1] = universe[i].vel[1] * -1
         pygame.draw.circle(
             surface,
             (255, 255, 0),
