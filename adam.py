@@ -3,7 +3,7 @@
 
 # Imports #
 
-from math import sqrt, fabs
+from math import sqrt, fabs, floor
 from time import sleep
 from subprocess import check_call
 import sys
@@ -19,7 +19,7 @@ except ModuleNotFoundError:
 
 pygame.init()
 
-bigG: float = 2  # true constant: 6.67430 * (10**-11)
+bigG: float = 1  # true constant: 6.67430 * (10**-11)
 width, height = 600, 500
 
 surface = pygame.display.set_mode((width, height), pygame.RESIZABLE)
@@ -29,10 +29,11 @@ mass_input = ""
 
 
 class Particle:
-    def __init__(self, mass: float, pos: list, vel: list) -> None:
+    def __init__(self, mass: float, pos: list, vel: list, density: float) -> None:
         self.mass = mass
         self.pos = pos
         self.vel = vel
+        self.density = density
 
 
 def acc_gravity(mass1: float, mass2: float, distance: float, G: float) -> float:
@@ -51,6 +52,7 @@ universe = [
         uniform(0, 10),
         [uniform(width * -1, width), uniform(height * -1, height)],
         [uniform(0, 10), uniform(0, 10)],
+        floor(uniform(1, 10)),
     )
     for i in range(0, 10)
 ]
@@ -98,6 +100,7 @@ while not done:
                         uniform(0, 100),
                         [uniform(width * -1, width), uniform(height * -1, height)],
                         [uniform(0, 10), uniform(0, 10)],
+                        floor(uniform(1, 10))
                     )
                 )
         if event.type == pygame.MOUSEBUTTONUP and mass_input != "":
@@ -165,7 +168,7 @@ while not done:
             surface,
             (255, 255, 0),
             (width / 2 + universe[i].pos[0], height / 2 - universe[i].pos[1]),
-            universe[i].mass,
+            universe[i].mass/universe[i].density,
         )
     sleep(0.1)
     pygame.display.flip()
