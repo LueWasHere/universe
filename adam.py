@@ -52,7 +52,7 @@ universe = [
         uniform(0, 10),
         [uniform(width * -1, width), uniform(height * -1, height)],
         [uniform(0, 10), uniform(0, 10)],
-        floor(uniform(1, 10)),
+        floor(uniform(4, 10)),
     )
     for i in range(0, 10)
 ]
