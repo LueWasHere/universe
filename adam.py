@@ -23,7 +23,7 @@ bigG: float = 1  # true constant: 6.67430 * (10**-11)
 width, height = 600, 500
 
 surface = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-pygame.display.set_caption("Pygame Window")
+pygame.display.set_caption("Gravity Simulation")
 done = False
 mass_input = ""
 
