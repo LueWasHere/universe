@@ -60,6 +60,8 @@ universe = [
 #   Execution   #
 
 while not done:
+    if bigG == 0:
+        bigG = 0.000000000000001
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
@@ -100,7 +102,7 @@ while not done:
                         uniform(0, 100),
                         [uniform(width * -1, width), uniform(height * -1, height)],
                         [uniform(0, 10), uniform(0, 10)],
-                        floor(uniform(1, 10)),
+                        floor(uniform(4, 10)),
                     )
                 )
         if event.type == pygame.MOUSEBUTTONUP and mass_input != "":
@@ -112,9 +114,12 @@ while not done:
                         height / 2 - pygame.mouse.get_pos()[1],
                     ],
                     [0, 0],
+                    floor(uniform(4, 10)),
                 )
             )
             mass_input = ""
+    if bigG == 0:
+        bigG = 0.000000000000001
     surface.fill((0, 0, 0))
     for i in range(0, len(universe)):
         for j in range(0, len(universe)):
@@ -146,10 +151,8 @@ while not done:
                     calc_dist(universe[j].pos, universe[i].pos),
                     bigG,
                 )
+
     for i in range(0, len(universe)):
-        print(
-            f"Particle {i}: Mass {universe[i].mass}; Velocity: {universe[i].vel}; Position: ({universe[i].pos[0]}, {universe[i].pos[1]}); Density: {universe[i].density} (Resulting size: {universe[i].mass/universe[i].density}px); G: {bigG}"
-        )
         universe[i].pos[0] += universe[i].vel[0]
         universe[i].pos[1] += universe[i].vel[1]
         if universe[i].pos[0] < (width / 2) * -1:
@@ -178,6 +181,17 @@ while not done:
                 universe[i].density,
                 width=1,
             )
+        if universe[i].vel[0] > sqrt((2*universe[i].mass*bigG)/universe[i].density):
+            universe[i].vel[0] = sqrt((2*universe[i].mass*bigG)/universe[i].density)
+        elif universe[i].vel[0] < sqrt((2*universe[i].mass*bigG)/universe[i].density)*-1:
+            universe[i].vel[0] = sqrt((2*universe[i].mass*bigG)/universe[i].density)*-1
+        if universe[i].vel[1] > sqrt((2*universe[i].mass*bigG)/universe[i].density):
+            universe[i].vel[1] = sqrt((2*universe[i].mass*bigG)/universe[i].density)
+        elif universe[i].vel[1] < sqrt((2*universe[i].mass*bigG)/universe[i].density)*-1:
+            universe[i].vel[1] = sqrt((2*universe[i].mass*bigG)/universe[i].density)*-1
+        print(
+            f"Particle {i}: Mass {universe[i].mass}; Velocity: {universe[i].vel} ({(fabs(universe[i].vel[0])+fabs(universe[i].vel[1])/sqrt((2*universe[i].mass*bigG)/universe[i].density))*100}% of term vel: {sqrt((2*universe[i].mass*bigG)/universe[i].density)}); Position: ({universe[i].pos[0]}, {universe[i].pos[1]}); Density: {universe[i].density} (Resulting size: {universe[i].mass/universe[i].density}px); G: {bigG}"
+        )
     sleep(0.1)
     pygame.display.flip()
     width, height = pygame.display.get_window_size()
