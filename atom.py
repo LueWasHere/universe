@@ -54,7 +54,7 @@ universe = [
         [uniform(0, 10), uniform(0, 10)],
         floor(uniform(4, 10)),
     )
-    for i in range(0, 10)
+    for i in range(0, 2)
 ]
 
 #   Execution   #
