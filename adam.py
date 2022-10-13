@@ -100,7 +100,7 @@ while not done:
                         uniform(0, 100),
                         [uniform(width * -1, width), uniform(height * -1, height)],
                         [uniform(0, 10), uniform(0, 10)],
-                        floor(uniform(1, 10))
+                        floor(uniform(1, 10)),
                     )
                 )
         if event.type == pygame.MOUSEBUTTONUP and mass_input != "":
@@ -168,7 +168,7 @@ while not done:
             surface,
             (255, 255, 0),
             (width / 2 + universe[i].pos[0], height / 2 - universe[i].pos[1]),
-            universe[i].mass/universe[i].density,
+            universe[i].mass / universe[i].density,
         )
     sleep(0.1)
     pygame.display.flip()
