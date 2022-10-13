@@ -82,8 +82,6 @@ while not done:
                 pygame.K_8,
                 pygame.K_9,
                 pygame.K_PERIOD,
-                pygame.K_KP_MINUS,
-                pygame.K_MINUS,
             ]:
                 mass_input += ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", ][
                     [
